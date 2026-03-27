@@ -1,0 +1,6 @@
+package com.settlementbatch.domain;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SettlementRepository extends JpaRepository<Settlement, Long> {
+}

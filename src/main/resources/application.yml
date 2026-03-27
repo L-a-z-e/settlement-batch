@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: settlement-batch
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/benchmark?rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: bench
+    password: bench
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 100
+        order_inserts: true
+        order_updates: true
+    show-sql: false
+
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+
+benchmark:
+  data-count: 20000000
+  insert-data-count: 100000
+  chunk-size: 1000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  level:
+    org.springframework.batch: INFO
+    com.settlementbatch: INFO
